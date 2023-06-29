@@ -130,6 +130,40 @@ void dijkstraShortestPaths(Edge matrix[][MAX_SIZE], int startVertex)
 	}
 }
 
+bool isGraphConnected(Edge matrix[][MAX_SIZE], int startVertex)
+{
+	bool visited[MAX_SIZE] = {false};
+
+	queue<int> q;
+	q.push(startVertex);
+	visited[startVertex] = true;
+
+	while (!q.empty())
+	{
+		int u = q.front();
+		q.pop();
+
+		for (int v = 0; v < MAX_SIZE; v++)
+		{
+			if (hasEdge(matrix, u, v) && !visited[v])
+			{
+				q.push(v);
+				visited[v] = true;
+			}
+		}
+	}
+
+	for (int i = 0; i < MAX_SIZE; i++)
+	{
+		if (!visited[i])
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
 int main()
 {
 	Edge matrix[MAX_SIZE][MAX_SIZE] = {
@@ -164,5 +198,8 @@ int main()
 
 	int startVertex = 0;
 	dijkstraShortestPaths(matrix, startVertex);
+
+	cout << "\nIs the graph connected? " << boolalpha << isGraphConnected(matrix, startVertex);
+
 	return 0;
 }
