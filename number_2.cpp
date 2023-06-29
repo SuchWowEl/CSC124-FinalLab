@@ -3,12 +3,6 @@
 #include <algorithm>
 #include <queue>
 
-/* MEMBERS:
-	Guingao, Rhea SalveAS
-	Dolorosa, Elizer
-	Aclo, Romeo Giullano
-*/
-
 using namespace std;
 
 struct Edge {
@@ -19,25 +13,25 @@ bool compareEdges(const Edge& e1, const Edge& e2) {
     return e1.weight < e2.weight;
 }
 
-int findParent(std::vector<int>& parent, int vertex) {
+int findParent(vector<int>& parent, int vertex) {
     if (parent[vertex] == -1)
         return vertex;
     return findParent(parent, parent[vertex]);
 }
 
-void unionSets(std::vector<int>& parent, int x, int y) {
+void unionSets(vector<int>& parent, int x, int y) {
     int parentX = findParent(parent, x);
     int parentY = findParent(parent, y);
     parent[parentX] = parentY;
 }
 
-void minimumSpanningTree(const std::vector<Edge>& edges, int n) {
-    std::vector<Edge> minimumSpanningTree;
-    std::vector<int> parent(n, -1);
+void minimumSpanningTree(const vector<Edge>& edges, int n) {
+    vector<Edge> minimumSpanningTree;
+    vector<int> parent(n + 1, -1);
     int edgeCount = 0;
 
-    std::vector<Edge> sortedEdges = edges;
-    std::sort(sortedEdges.begin(), sortedEdges.end(), compareEdges);
+    vector<Edge> sortedEdges = edges;
+    sort(sortedEdges.begin(), sortedEdges.end(), compareEdges);
 
     for (const auto& edge : sortedEdges) {
         int parentSrc = findParent(parent, edge.src);
@@ -54,22 +48,21 @@ void minimumSpanningTree(const std::vector<Edge>& edges, int n) {
     }
 
     if (edgeCount == n - 1) {
-        std::cout << "Minimum Spanning Tree:\n";
+        cout << "Minimum Spanning Tree(Step-by-step):\n";
         for (const auto& edge : minimumSpanningTree)
-            std::cout << edge.src << " -- " << edge.dest << " with weight " << edge.weight << "\n";
+            cout << edge.src << " -- " << edge.dest << " with weight " << edge.weight << "\n";
     } else {
-        std::cout << "Network has no spanning tree.\n";
+        cout << "Network has no spanning tree.\n";
     }
 }
 
 struct Graph {
-
-  int** adjMatrix;
-  int numVertices;
+    int** adjMatrix;
+    int numVertices;
 
     void bfs(int startVertex) {
-        bool* visited = new bool[numVertices];
-        for (int i = 1; i <= numVertices; i++)
+        bool* visited = new bool[numVertices + 1];
+        for (int i = 0; i <= numVertices; i++)
             visited[i] = false;
 
         queue<int> q;
@@ -92,63 +85,71 @@ struct Graph {
         delete[] visited;
     }
 
-  // Initialize the matrix to zero
-  Graph(int numVertices) {
-    this->numVertices = numVertices;
-    adjMatrix = new int*[numVertices];
-    for (int i = 1; i <= numVertices; i++) {
-      adjMatrix[i] = new int[numVertices];
-      for (int j = 1; j <= numVertices; j++)
+    void dfsUtil(int vertex, vector<bool>& visited) {
+        visited[vertex] = true;
+        cout << vertex << " ";
+
+        for (int i = 1; i <= numVertices; i++) {
+            if (adjMatrix[vertex][i] != 0 && !visited[i]) {
+                dfsUtil(i, visited);
+            }
+        }
+    }
+
+    void dfs(int startVertex) {
+        vector<bool> visited(numVertices + 1, false);
+        dfsUtil(startVertex, visited);
+    }
+
+    // Initialize the matrix to zero
+    Graph(int numVertices) {
+        this->numVertices = numVertices;
+        adjMatrix = new int*[numVertices + 1];
+        for (int i = 1; i <= numVertices; i++) {
+            adjMatrix[i] = new int[numVertices + 1];
+            for (int j = 1; j <= numVertices; j++)
+                adjMatrix[i][j] = 0;
+        }
+    }
+
+    // Add edges
+    void addEdge(int i, int j, int weight) {
+        adjMatrix[i][j] = weight;
+        adjMatrix[j][i] = weight;
+    }
+
+    // Remove edges
+    void removeEdge(int i, int j) {
         adjMatrix[i][j] = 0;
+        adjMatrix[j][i] = 0;
     }
-  }
 
-  // Add edges
-  void addEdge(int i, int j, int weight) {
-    adjMatrix[i][j] = weight;
-    adjMatrix[j][i] = weight;
-  }
-
-  // Remove edges
-  void removeEdge(int i, int j) {
-    adjMatrix[i][j] = 0;
-    adjMatrix[j][i] = 0;
-  }
-
-  // Print the martix
-  void toString() {
-      cout <<  "\t";
-    for (int i = 1; i <= numVertices; i++) {
-        cout << i << "\t";
+    // Print the matrix
+    void toString() {
+        cout << "\t";
+        for (int i = 1; i <= numVertices; i++) {
+            cout << i << "\t";
+        }
+        cout << endl;
+        cout << "______________________________________________________________________";
+        cout << endl;
+        for (int i = 1; i <= numVertices; i++) {
+            cout << i << "| \t";
+            for (int j = 1; j <= numVertices; j++)
+                cout << adjMatrix[i][j] << "\t";
+            cout << "\n";
+        }
     }
-    cout << endl;
-    cout << "----------------------------------------------------------------------------";
-    cout << endl;
-    for (int i = 1; i <= numVertices; i++) {
-      cout << i << "| \t";
-      for (int j = 1; j <= numVertices; j++)
-        cout << adjMatrix[i][j] << "\t";
-      cout << "\n";
-    }
-  }
 
-  ~Graph() {
-    for (int i = 1; i <= numVertices; i++)
-      delete[] adjMatrix[i];
-    delete[] adjMatrix;
-  }
+    ~Graph() {
+        for (int i = 1; i <= numVertices; i++)
+            delete[] adjMatrix[i];
+        delete[] adjMatrix;
+    }
 };
 
-
-
-
-
 int main() {
-
-    cout << endl;
-
     Graph g(8);
-
     g.addEdge(1, 2, 2);
     g.addEdge(1, 5, 22);
     g.addEdge(1, 6, 8);
@@ -162,16 +163,22 @@ int main() {
     g.addEdge(5, 6, 25);
     g.addEdge(6, 7, 11);
     g.addEdge(7, 8, 15);
-
-	g.toString();
+    cout << "4.a.)" << endl;
+    g.toString();
     cout << endl;
-    cout <<"The cost of the edge at (2,3): " <<g.adjMatrix[2][3];
-    cout<<endl;
+    cout << "The cost of the edge at (2,3): " << g.adjMatrix[2][3] << endl;
+    cout << "-------------------------------------------------------------------------------------------------------------" << endl;
+    cout << "4.b.)" << endl << endl;
     cout << "BFS traversal starting from vertex 1: ";
     g.bfs(1);
     cout << endl;
-
-
+    cout << "-------------------------------------------------------------------------------------------------------------" << endl;
+    cout << "4.c.)" << endl << endl;
+    cout << "DFS traversal starting from vertex 1: ";
+    g.dfs(1);
+    cout << endl;
+    cout << "-------------------------------------------------------------------------------------------------------------" << endl;
+    cout << "Bonus Qustion #1:" << endl << endl;
     vector<Edge> edges = {
         {1, 2, 2},
         {1, 5, 22},
@@ -206,5 +213,4 @@ int main() {
     minimumSpanningTree(edges, n);
 
     return 0;
-
 }
