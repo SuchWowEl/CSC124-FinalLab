@@ -136,11 +136,7 @@ int main()
 		{{false, 0}, {true, 2}, {false, 0}, {true, 20}, {false, 0}, {false, 0}, {false, 0}, {false, 0}, {false, 0}, {false, 0}},
 		{{false, 0}, {false, 0}, {false, 0}, {false, 0}, {true, 1}, {false, 0}, {false, 0}, {false, 0}, {false, 0}, {false, 0}},
 		{{true, 3}, {false, 0}, {false, 0}, {false, 0}, {false, 0}, {false, 0}, {false, 0}, {false, 0}, {false, 0}, {false, 0}},
-<<<<<<< HEAD
-		{{false, 0}, {false, 0}, {true, 4}, {false, 0}, {false, 0}, {true, 6}, {true, 4}, {false, 0}, {false, 0}, {false, 0}},
-=======
 		{{false, 0}, {false, 0}, {true, 8}, {false, 0}, {false, 0}, {true, 6}, {true, 4}, {false, 0}, {false, 0}, {false, 0}},
->>>>>>> 6a874465aeb2b4c88092d6ab8979cb2b6a10ef3d
 		{{false, 0}, {false, 0}, {true, 7}, {false, 0}, {false, 0}, {false, 0}, {false, 0}, {true, 3}, {false, 0}, {false, 0}},
 		{{false, 0}, {false, 0}, {true, 1}, {false, 0}, {false, 0}, {false, 0}, {false, 0}, {false, 0}, {false, 0}, {false, 0}},
 		{{false, 0}, {false, 0}, {false, 0}, {false, 0}, {false, 0}, {false, 0}, {false, 0}, {true, 1}, {false, 0}, {false, 0}},
