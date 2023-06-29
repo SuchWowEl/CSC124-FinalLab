@@ -1,3 +1,9 @@
+/* MEMBERS:
+	Guingao, Rhea Salve
+	Dolorosa, Elizer
+	Aclo, Romeo Giullano
+*/
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
