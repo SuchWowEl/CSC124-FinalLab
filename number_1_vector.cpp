@@ -151,6 +151,55 @@ bool isGraphConnected(vector<vector<int>> matrix, int startVertex)
     return true;
 }
 
+void bfs(const vector<vector<int>> &graph, int startNode)
+{
+    startNode -= 1;
+    int numNodes = graph.size();
+    vector<bool> visited(numNodes, false);
+    queue<int> bfsQueue;
+
+    visited[startNode] = true;
+    bfsQueue.push(startNode);
+
+    while (!bfsQueue.empty())
+    {
+        int currentNode = bfsQueue.front();
+        bfsQueue.pop();
+        cout << currentNode + 1 << " ";
+
+        for (int i = 0; i < numNodes; ++i)
+        {
+            if (!visited[i] && graph[currentNode][i] != 0)
+            {
+                visited[i] = true;
+                bfsQueue.push(i);
+            }
+        }
+    }
+}
+
+void dfsUtil(vector<vector<int>> &matrix, int vertex, vector<bool> &visited)
+{
+    visited[vertex] = true;
+    cout << vertex + 1 << " ";
+
+    for (int i = 1; i <= matrix.size() - 1; i++)
+    {
+        // cout << "w " << i << endl;
+        if (matrix[vertex][i] != 0 && !visited[i])
+        {
+            dfsUtil(matrix, i, visited);
+        }
+    }
+}
+
+void dfs(vector<vector<int>> &matrix, int startVertex)
+{
+    // startVertex -= 1;
+    vector<bool> visited(matrix.size(), false);
+    dfsUtil(matrix, startVertex, visited);
+}
+
 int main()
 {
     vector<vector<int>> graph = {
@@ -184,6 +233,14 @@ int main()
     dijkstraShortestPaths(graph, startVertex);
 
     cout << "\nIs the graph connected? " << boolalpha << isGraphConnected(graph, startVertex);
+
+    cout << endl
+         << "BFS: " << endl;
+    bfs(graph, 1);
+
+    cout << endl
+         << "BFS: " << endl;
+    dfs(graph, 0);
 
     return 0;
 }
