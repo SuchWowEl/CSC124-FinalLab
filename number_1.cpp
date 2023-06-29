@@ -95,7 +95,7 @@ void dijkstraShortestPaths(Edge matrix[][MAX_SIZE], int startVertex)
 		}
 	}
 
-	cout << "Shortest paths from vertex " << startVertex << ":\n";
+	cout << "Shortest paths from vertex " << 1 << ":\n";
 	for (int v = 0; v < MAX_SIZE; v++)
 	{
 		if (v != startVertex)
