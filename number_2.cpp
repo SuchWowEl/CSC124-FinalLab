@@ -3,12 +3,6 @@
 #include <algorithm>
 #include <queue>
 
-/* MEMBERS:
-	Guingao, Rhea SalveAS
-	Dolorosa, Elizer
-	Aclo, Romeo Giullano
-*/
-
 using namespace std;
 
 struct Edge {
@@ -54,7 +48,7 @@ void minimumSpanningTree(const vector<Edge>& edges, int n) {
     }
 
     if (edgeCount == n - 1) {
-        cout << "Minimum Spanning Tree:\n";
+        cout << "Minimum Spanning Tree(Step-by-step):\n";
         for (const auto& edge : minimumSpanningTree)
             cout << edge.src << " -- " << edge.dest << " with weight " << edge.weight << "\n";
     } else {
@@ -137,7 +131,7 @@ struct Graph {
             cout << i << "\t";
         }
         cout << endl;
-        cout << "----------------------------------------------------------------------------";
+        cout << "______________________________________________________________________";
         cout << endl;
         for (int i = 1; i <= numVertices; i++) {
             cout << i << "| \t";
@@ -156,7 +150,6 @@ struct Graph {
 
 int main() {
     Graph g(8);
-
     g.addEdge(1, 2, 2);
     g.addEdge(1, 5, 22);
     g.addEdge(1, 6, 8);
@@ -170,17 +163,22 @@ int main() {
     g.addEdge(5, 6, 25);
     g.addEdge(6, 7, 11);
     g.addEdge(7, 8, 15);
-
+    cout << "4.a.)" << endl;
     g.toString();
     cout << endl;
     cout << "The cost of the edge at (2,3): " << g.adjMatrix[2][3] << endl;
+    cout << "-------------------------------------------------------------------------------------------------------------" << endl;
+    cout << "4.b.)" << endl << endl;
     cout << "BFS traversal starting from vertex 1: ";
     g.bfs(1);
     cout << endl;
+    cout << "-------------------------------------------------------------------------------------------------------------" << endl;
+    cout << "4.c.)" << endl << endl;
     cout << "DFS traversal starting from vertex 1: ";
     g.dfs(1);
     cout << endl;
-
+    cout << "-------------------------------------------------------------------------------------------------------------" << endl;
+    cout << "Bonus Qustion #1:" << endl << endl;
     vector<Edge> edges = {
         {1, 2, 2},
         {1, 5, 22},
