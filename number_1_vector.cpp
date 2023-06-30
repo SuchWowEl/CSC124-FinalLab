@@ -239,7 +239,7 @@ int main()
     bfs(graph, 1);
 
     cout << endl
-         << "BFS: " << endl;
+         << "DFS: " << endl;
     dfs(graph, 0);
 
     return 0;
