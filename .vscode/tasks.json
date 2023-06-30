@@ -1,0 +1,24 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build",
+      "type": "shell",
+      "command": "g++",
+      "args": [
+        "-Wall",
+        "-I/D:/Program Files/Graphviz/include",
+        "-L/D:/Program Files/Graphviz/lib",
+        "-lgraph",
+        "${file}",
+        "-o",
+        "${fileDirname}/${fileBasenameNoExtension}"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    }
+  ]
+}
