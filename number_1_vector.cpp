@@ -12,9 +12,9 @@ using namespace std;
 
 int numberOfEdges(vector<vector<int>> graph)
 {
-    int count = 0;
-    for (int i = 0; i < graph.size(); i++)
-        for (int j = 0; j < graph[i].size(); j++)
+    int count = 0, size = graph.size();
+    for (int i = 0; i < size; i++)
+        for (int j = 0; j < (int)graph[i].size(); j++)
             if (graph[i][j] > 0)
                 count++;
     return count;
@@ -22,9 +22,9 @@ int numberOfEdges(vector<vector<int>> graph)
 
 int numberOfEdges(vector<vector<bool>> graph)
 {
-    int count = 0;
-    for (int i = 0; i < graph.size(); i++)
-        for (int j = 0; j < graph[i].size(); j++)
+    int count = 0, size = graph.size();
+    for (int i = 0; i < size; i++)
+        for (int j = 0; j < (int)graph[i].size(); j++)
             if (graph[i][j] > 0)
                 count++;
     return count;
@@ -32,11 +32,12 @@ int numberOfEdges(vector<vector<bool>> graph)
 
 void dijkstraShortestPaths(vector<vector<int>> graph, int startVertex)
 {
-    int dist[graph.size()];
-    int prev[graph.size()];
-    bool visited[graph.size()];
+    int size = graph.size();
+    int dist[size];
+    int prev[size];
+    bool visited[size];
 
-    for (int i = 0; i < graph.size(); i++)
+    for (int i = 0; i < size; i++)
     {
         dist[i] = numeric_limits<int>::max();
         prev[i] = -1;
@@ -61,7 +62,7 @@ void dijkstraShortestPaths(vector<vector<int>> graph, int startVertex)
 
         visited[u] = true;
 
-        for (int v = 0; v < graph.size(); v++)
+        for (int v = 0; v < size; v++)
         {
             int temp = graph[u][v];
             if (temp > 0)
@@ -82,7 +83,7 @@ void dijkstraShortestPaths(vector<vector<int>> graph, int startVertex)
     }
 
     cout << "Shortest paths from vertex " << 1 << ":\n";
-    for (int v = 0; v < graph.size(); v++)
+    for (int v = 0; v < size; v++)
     {
         if (v != startVertex)
         {
@@ -93,7 +94,7 @@ void dijkstraShortestPaths(vector<vector<int>> graph, int startVertex)
             }
             else
             {
-                int path[graph.size()];
+                int path[size];
                 int pathLength = 0;
                 int currVertex = v;
                 while (currVertex != -1)
@@ -114,12 +115,17 @@ void dijkstraShortestPaths(vector<vector<int>> graph, int startVertex)
             cout << endl;
         }
     }
+    cout << "bool visited[] status: ";
+    for (int i = 0; i < size; i++)
+        cout << visited[i] << " ";
+    cout << endl;
 }
 
 bool isGraphConnected(vector<vector<int>> matrix, int startVertex)
 {
+    int size = matrix.size();
     startVertex += 1;
-    bool visited[matrix.size()] = {false};
+    bool visited[size] = {false};
 
     queue<int> q;
     q.push(startVertex);
@@ -130,7 +136,7 @@ bool isGraphConnected(vector<vector<int>> matrix, int startVertex)
         int u = q.front();
         q.pop();
 
-        for (int v = 0; v < matrix.size(); v++)
+        for (int v = 0; v < size; v++)
         {
             if (matrix[u][v] > 0 && !visited[v])
             {
@@ -140,7 +146,7 @@ bool isGraphConnected(vector<vector<int>> matrix, int startVertex)
         }
     }
 
-    for (int i = 0; i < matrix.size(); i++)
+    for (int i = 0; i < size; i++)
     {
         if (!visited[i])
         {
@@ -178,17 +184,17 @@ void bfs(const vector<vector<int>> &graph, int startNode)
     }
 }
 
-void dfsUtil(vector<vector<int>> &matrix, int vertex, vector<bool> &visited)
+void dfsUtil(vector<vector<int>> &matrix, int vertex, vector<bool> &visited, int size)
 {
     visited[vertex] = true;
     cout << vertex + 1 << " ";
 
-    for (int i = 1; i <= matrix.size() - 1; i++)
+    for (int i = 1; i <= size - 1; i++)
     {
         // cout << "w " << i << endl;
         if (matrix[vertex][i] != 0 && !visited[i])
         {
-            dfsUtil(matrix, i, visited);
+            dfsUtil(matrix, i, visited, size);
         }
     }
 }
@@ -197,7 +203,7 @@ void dfs(vector<vector<int>> &matrix, int startVertex)
 {
     // startVertex -= 1;
     vector<bool> visited(matrix.size(), false);
-    dfsUtil(matrix, startVertex, visited);
+    dfsUtil(matrix, startVertex, visited, (int)matrix.size());
 }
 
 int main()
@@ -233,7 +239,8 @@ int main()
     cout << "-------------------------------------------------------------------------------------------------------------" << endl;
 
     cout << "3. b.)" << endl;
-    cout << "Is the directed graph connected? " << boolalpha << isGraphConnected(graph, startVertex) << endl;
+    cout << "Is the directed graph connected? Why? "
+         << "It's " << boolalpha << isGraphConnected(graph, startVertex) << " because when we used dijkstrShortestPaths earlier, the visited array was all filled with true" << endl;
     cout << "------------------------------------------------------------------------------------------------------------" << endl;
 
     cout << "3. c.)" << endl;
@@ -248,7 +255,7 @@ int main()
 
     cout << "Bonus Question #2:" << endl;
     int numEdges = numberOfEdges(booleanGraph);
-    cout << "The number of edges in the graph is " << numEdges << ".\n ";
+    cout << "The number of edges in the booleanGraph is " << numEdges << ".\n ";
     cout << "------------------------------------------------------------------------------------------------------------" << endl;
 
     return 0;
