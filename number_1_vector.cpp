@@ -226,21 +226,30 @@ int main()
         {0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
         {0, 0, 0, 0, 0, 0, 0, 0, 1, 0}};
 
-    int numEdges = numberOfEdges(booleanGraph);
-    cout << "The number of edges in the graph is " << numEdges << ".\n \n";
-
+    cout << "-------------------------------------------------------------------------------------------------------------" << endl;
+    cout << "3. a.)" << endl;
     int startVertex = 0;
     dijkstraShortestPaths(graph, startVertex);
+    cout << "-------------------------------------------------------------------------------------------------------------" << endl;
 
-    cout << "\nIs the graph connected? " << boolalpha << isGraphConnected(graph, startVertex);
+    cout << "3. b.)" << endl;
+    cout << "Is the directed graph connected? " << boolalpha << isGraphConnected(graph, startVertex) << endl;
+    cout << "------------------------------------------------------------------------------------------------------------" << endl;
 
-    cout << endl
-         << "BFS: " << endl;
+    cout << "3. c.)" << endl;
+    cout << "Breadth-first spanning tree starting at vertex 1: " << endl;
     bfs(graph, 1);
+    cout << "\n-------------------------------------------------------------------------------------------------------------" << endl;
 
-    cout << endl
-         << "BFS: " << endl;
+    cout << "3. d.)" << endl;
+    cout << "Depth-first spanning tree starting at vertex 1: " << endl;
     dfs(graph, 0);
+    cout << "\n-------------------------------------------------------------------------------------------------------------" << endl;
+
+    cout << "Bonus Question #2:" << endl;
+    int numEdges = numberOfEdges(booleanGraph);
+    cout << "The number of edges in the graph is " << numEdges << ".\n ";
+    cout << "------------------------------------------------------------------------------------------------------------" << endl;
 
     return 0;
 }
